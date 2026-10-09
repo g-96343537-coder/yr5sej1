@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>五年级历史（SEJARAH Tahun 5）复习测验</title>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['\\(', '\\)']] },
+    startup: {
+      pageReady: () => {
+        return MathJax.startup.defaultPageReady();
+      }
+    }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+body {
+  font-family: "ZCOOL KuaiLe", "Microsoft YaHei", sans-serif;
+  font-size: 18px; 
+  background: url('https://lh3.googleusercontent.com/d/1gODOrqxvvdvMu8zSi7-EADVXRD_mphm8') no-repeat center center fixed;
+  background-size: cover;
+  padding: 20px;
+  color: #000;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* 主标题 */
+h1 {
+  font-size: 2.2rem;
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
+}
+
+/* 页码 */
+#q-index {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  color: #444;
+}
+
+/* 浮现层 */
+#quiz-container {
+  background: rgba(255,255,255,0.9);
+  padding: 24px 28px;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  backdrop-filter: blur(6px);
+  max-width: 800px;
+  margin: auto;
+  animation: fadeIn 0.8s forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 题目 */
+#question {
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  line-height: 1.6;
+  font-weight: bold;
+}
+
+/* 选项 */
+.opt {
+  font-size: 1.6rem;
+  padding: 14px 20px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  border: 2px solid #d0d0d0;
+  background: #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: all 0.2s;
+}
+.opt:hover {
+  transform: translateY(-2px);
+  border-color: #7dbbff;
+  background: #f0f8ff;
+}
+.opt:active {
+  transform: scale(0.98);
+}
+.opt.correct { background: #d4edda; border-color: #28a745; color: #155724; }
+.opt.wrong { background: #f8d7da; border-color: #dc3545; color: #721c24; }
+.opt.disabled { pointer-events: none; }
+
+/* 按钮 */
+button {
+  font-family: inherit;
+}
+#nextBtn, #finishBtn, #startQuiz {
+  font-size: 1.5rem;
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #7dbbff, #5ca8ff);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  margin-top: 20px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  transition: transform 0.1s;
+  width: 100%;
+  max-width: 300px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+#nextBtn:active, #finishBtn:active { transform: scale(0.95); }
+#nextBtn:disabled { background: #ccc; cursor: not-allowed; box-shadow: none; }
+#finishBtn { display:none; background: linear-gradient(135deg, #42e695, #3bb2b8); }
+
+#restart {
+  font-size: 1.1rem;
+  padding: 8px 15px;
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 输入框 */
+#student-info { text-align: center; }
+#student-info label { display: block; margin: 20px 0; font-size: 1.5rem; }
+#student-info input, #student-info select {
+  font-size: 1.2rem;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 80%;
+  max-width: 300px;
+}
+
+/* 结果 */
+.score {
+  font-size: 1.4rem;
+  margin-top: 20px;
+  text-align: center;
+  color: #555;
+}
+#result {
+  margin-top: 25px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+  color: #1a1a1a;
+}
+#upload-status {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 1.2rem;
+}
+</style>
+</head>
+<body>
+<h1>五年级历史（SEJARAH Tahun 5）复习测验</h1>
+
+<div id="quiz-container">
+  <div id="student-info">
+    <label>姓名：<br>
+      <input type="text" id="studentName" placeholder="请输入你的名字">
+    </label>
+    <label>班级：<br>
+      <select id="studentClass">
+        <option value="">请选择班级</option>
+        <option value="5M">5M</option>
+        <option value="5K">5K</option>
+        <option value="5B">5B</option>
+        <option value="5H">5H</option>
+        <option value="5J">5J</option>
+        <option value="5U">5U</option>
+        <option value="5P">5P</option>
+        <option value="5C">5C</option>
+      </select>
+    </label>
+    <button id="startQuiz">开始测验</button>
+  </div>
+
+  <div id="quiz-content" style="display:none;">
+    <div id="q-index">第 <span id="cur">1</span> / <span id="total">0</span> 题</div>
+    <div id="question"></div>
+    <div id="options"></div>
+    <div class="controls">
+      <div class="score" id="score">得分：0</div>
+      <button id="nextBtn" disabled>下一题</button>
+      <button id="finishBtn">完成测验</button>
+      <button id="restart">重做</button>
+    </div>
+    <div id="result"></div>
+    <div id="upload-status"></div>
+  </div>
+</div>
+
+<script>
+// ====== Google Apps Script URL ======
+const scriptURL = "https://script.google.com/macros/s/AKfycbyMJVFbvURvR97GQSIo0ESDbAxkFExYoN0uwTdD8tm8XUJT-36YrwcBCetz4sMJJpAW/exec";
+
+// ====== 音效生成器 (Web Audio API) ======
+let audioCtx = null;
+
+function initAudio() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+}
+
+// 答对音效 (清脆双音“叮咚”)
+function playCorrectSound() {
+  initAudio();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  
+  const now = audioCtx.currentTime;
+  const osc1 = audioCtx.createOscillator();
+  const osc2 = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+
+  osc1.type = 'sine';
+  osc2.type = 'sine';
+  
+  osc1.frequency.setValueAtTime(523.25, now); // C5
+  osc2.frequency.setValueAtTime(659.25, now + 0.1); // E5
+
+  gain.gain.setValueAtTime(0.3, now);
+  gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+
+  osc1.connect(gain);
+  osc2.connect(gain);
+  gain.connect(audioCtx.destination);
+
+  osc1.start(now);
+  osc1.stop(now + 0.1);
+  osc2.start(now + 0.1);
+  osc2.stop(now + 0.4);
+}
+
+// 答错音效 (低沉提示音“嘟嘟”)
+function playWrongSound() {
+  initAudio();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+
+  const now = audioCtx.currentTime;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+
+  osc.type = 'sawtooth';
+  osc.frequency.setValueAtTime(180, now);
+  osc.frequency.setValueAtTime(140, now + 0.15);
+
+  gain.gain.setValueAtTime(0.2, now);
+  gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+
+  osc.start(now);
+  osc.stop(now + 0.35);
+}
+
+// ====== 题库 ======
+const rawData = `
+1,在早期马来王国中，用来象征拉惹或苏丹拥有统治权力和权威的词汇是什么？ A. 瓦阿德（Waadat） B. 参政（Residen） C. 君权（Daulat） D. 宪法（Perlembagaan）,C
+2,根据《马来纪年》中记录的“君臣协议”，人民如果违逆君主或背叛命令，将会面临什么后果？ A. 被大臣罢免职务 B. 被视为背叛君主（Tuladi） C. 必须向邻国赔款 D. 自动丧失公民身份,B
+3,在传统马来州属中，苏丹作为州的最高统治者，主要承担哪项核心职责？ A. 协助英国总督征收税收 B. 保障本身州属的和平与安宁 C. 负责管理海峡殖民地的行政 D. 仅能处理商业与交易事务,B
+4,在英殖民时期，英国参政司（Residen）或顾问官（Penasihat）被派驻到马来州属后，苏丹依然保留了哪方面的领导地位？ A. 军事指挥权与外交谈判权 B. 土地开垦与征收新税的决定权 C. 伊斯兰教与马来风俗习惯的首脑地位 D. 法庭审判与法律颁布的绝对权力,C
+5,我国共有九个实行君主制度的州属。其中，玻璃市州的最高统治者称为什么？ A. 苏丹（Sultan） B. 严端 / 最高统治者（Yamtuan Besar） C. 拉惹（Raja） D. 州元首（Yang di-Pertua Negeri）,C
+6,马六甲王朝颁布《马六甲法典》（Hukum Kanun Melaka）的核心目的是什么？ A. 吸引欧洲商人来马六甲投资 B. 保障马六甲人民的和平与安全 C. 规定英国北婆罗洲公司的管辖范围 D. 确立海峡殖民地的法律制度,B
+7,《马六甲海事法典》（Undang-Undang Laut Melaka）主要涵盖了哪些方面的条款？ A. 参政司的任命与职责 B. 航海、经商与交易法则 C. 州元首的遴选资格 D. 地方英雄的抗争惩罚,B
+8,英国人在 1874 年签署《邦咯条约》后，在霹雳州推行了什么制度来掌控州行政？ A. 詹姆斯·布洛克白人拉惹制度 B. 参政司制度（Sistem Residen） C. 日本军政监部制度 D. 严端管辖制度,B
+9,18世纪欧洲工业革命兴起后，英国列强主要为了获取我国哪些丰富的天然资源而展开殖民统治？ A. 香料与香木 B. 锡矿与天然橡胶 C. 石油与黄金 D. 铁矿与胡椒,B
+10,19世纪末期，管理沙巴州（北婆罗洲）行政事务的机构是什么？ A. 海峡殖民地总督府 B. 英国北婆罗洲公司（SBUB） C. 布洛克家族理事会 D. 暹罗驻扎官署,B
+11,1896年，英国人将哪四个马来州属合并组成“马来联邦”（Negeri-negeri Melayu Bersekutu）？ A. 槟城、马六甲、新加坡、柔佛 B. 吉打、玻璃市、吉兰丹、登嘉楼 C. 霹雳、雪兰莪、森美兰、彭亨 D. 砂拉越、沙巴、文莱、纳闽,C
+12,霹雳州地方英雄拿督马哈拉惹里拉反抗英国参政司毕治（J.W.W. Birch）的主要原因是什么？ A. 毕治强迫当地人民建造铁路 B. 毕治干预州行政并向人民强征新税 C. 毕治禁止人民开垦森林 D. 毕治割让巴西沙叻给暹罗,B
+13,在吉兰丹巴西富地（Pasir Puteh）率领人民反抗英国顾问制度与新税收法令的地方英雄是谁？ A. 督江谷（Tok Janggut） B. 严端安达（Yamtuan Antah） C. 多赛益（Dato' Naning） D. 仁答（Rentap）,A
+14,1957年8月31日，马来亚联合邦独立仪式在哪个历史性地点隆重举行？ A. 马六甲怡力宣告独立广场 B. 吉隆坡默迪卡体育场（Stadium Merdeka） C. 槟城康华利斯堡 D. 新山大皇宫,B
+15,我国国徽上的黄色新月与 14 角星分别代表什么含义？ A. 新月代表勇敢，14角星代表皇室 B. 新月代表联邦宗教伊斯兰教，14角星代表 13 个州与联邦直辖区团结一致 C. 新月代表商业繁荣，14角星代表五大国家原则 D. 新月代表司法公正，14角星代表独立历史,B
+16,我国国徽盾牌上部的“五把马来短剑”代表什么？ A. 早期海峡殖民地的三个地方 B. 前马来属邦（玻璃市、吉打、吉兰丹、登嘉楼和柔佛） C. 砂拉越与沙巴的加入 D. 马六甲王朝的五位伟大重臣,B
+17,我国国歌《Negaraku》的优美旋律选自霹雳州州歌的原本曲调，这首曲调名称是什么？ A. 《月光曲》（Terang Bulan） B. 《辉煌条纹》（Jalur Gemilang） C. 《马来西亚威武》（Malaysia Boleh） D. 《祖国大地》（Tanah Airku）,A
+18,当我们在集会或官方仪式上听到奏响国歌《Negaraku》时，必须恪守什么行为规范？ A. 边走向座位边小声哼唱 B. 马上停止走动，双手自然下垂并肃立 C. 向国旗举手敬礼并随意交谈 D. 快速拿出手机拍摄仪式过程,B
+19,我国国花大红花鲜艳的“红色”花瓣，在国家象征中代表什么精神？ A. 和平与安宁 B. 勇敢与坚毅 C. 纯洁与高尚 D. 礼貌与德行,B
+20,根据我国《联邦宪法》，马来语作为国语在国民教育体系中扮演着什么角色？ A. 主要的商业交易语言 B. 唯一的法庭翻译语言 C. 主要的教学媒介语（教育语言） D. 国际外交事务的官方语言,C
+`;
+
+// ====== 解析 CSV 逻辑 ======
+const data = rawData.trim().split("\n").map(line=>{
+  if(!line) return null;
+  const parts = line.split(",");
+  const answerChar = parts.pop().trim().toUpperCase(); 
+  const qid = parts.shift(); 
+  const fullContent = parts.join(","); 
+  
+  const optStart = fullContent.indexOf("A.");
+  const qtext = fullContent.slice(0, optStart).trim();
+  const optRaw = fullContent.slice(optStart);
+  
+  const optParts = optRaw.split(/\s(?=[A-D]\.\s)/).map(s=>s.trim());
+  const opts = optParts.map(op => op.replace(/^[A-D]\.\s*/, ""));
+  
+  while (opts.length < 4) opts.push("(缺失)");
+  
+  return { q: qtext, options: opts, answer: {A:0,B:1,C:2,D:3}[answerChar] };
+}).filter(item => item !== null);
+
+// ====== 测验逻辑 ======
+let current = 0;
+let score = 0;
+let answered = false;
+
+document.getElementById('total').textContent = data.length;
+
+function loadQuestion(){
+  answered = false;
+  document.getElementById('nextBtn').disabled = true;
+  document.getElementById('finishBtn').style.display = 'none';
+  document.getElementById('result').textContent = '';
+  document.getElementById('upload-status').textContent = '';
+  
+  const q = data[current];
+  document.getElementById('cur').textContent = current + 1;
+  
+  const qDiv = document.getElementById('question');
+  qDiv.innerHTML = q.q;
+
+  const optsDiv = document.getElementById('options');
+  optsDiv.innerHTML = '';
+  
+  q.options.forEach((opt,i)=>{
+    const div = document.createElement('div');
+    div.className = 'opt';
+    div.innerHTML = opt;
+    div.addEventListener('click', () => selectOption(div, i));
+    optsDiv.appendChild(div);
+  });
+
+  if (window.MathJax) {
+    MathJax.typesetPromise([qDiv, optsDiv]).catch((err) => console.log('MathJax error:', err));
+  }
+}
+
+function selectOption(el, index){
+  if(answered) return;
+  answered = true;
+  const q = data[current];
+  
+  const all = document.querySelectorAll('.opt');
+  all.forEach(d => d.classList.add('disabled'));
+
+  all.forEach((d, i) => { 
+    if(i === q.answer) d.classList.add('correct'); 
+  });
+
+  if(index !== q.answer) {
+    el.classList.add('wrong');
+    playWrongSound(); // 播放答错音效
+  } else {
+    score++;
+    playCorrectSound(); // 播放答对音效
+  }
+  document.getElementById('score').textContent = '得分：' + score;
+
+  if(current === data.length - 1){
+    document.getElementById('finishBtn').style.display = 'inline-block';
+    document.getElementById('nextBtn').style.display = 'none';
+  } else {
+    document.getElementById('nextBtn').disabled = false;
+  }
+}
+
+// 事件绑定
+document.getElementById('nextBtn').addEventListener('click', () => {
+  current++;
+  loadQuestion();
+});
+
+document.getElementById('finishBtn').addEventListener('click', () => {
+  const finishBtn = document.getElementById('finishBtn');
+  const resultDiv = document.getElementById('result');
+  const statusDiv = document.getElementById('upload-status');
+  
+  finishBtn.disabled = true;
+  finishBtn.textContent = '正在保存...';
+  
+  const formData = new URLSearchParams();
+  formData.append('quizName', '五年级历史练习 1');
+  formData.append('name', studentName);
+  formData.append('class', studentClass);
+  formData.append('score', score);
+  formData.append('total', data.length);
+
+  fetch(scriptURL, {
+    method: 'POST',
+    mode: 'no-cors', 
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: formData
+  })
+  .then(() => {
+    resultDiv.innerHTML = `🎉 测验结束！<br>${studentName}<br>总得分：<span style="color:#007bff">${score} / ${data.length}</span>`;
+    statusDiv.textContent = "✅ 成绩已发送给老师！";
+    finishBtn.style.display = 'none'; 
+  })
+  .catch((error) => {
+    console.error('Upload Error:', error);
+    resultDiv.textContent = `测验结束。得分：${score}`;
+    statusDiv.innerHTML = `<span style="color:red">⚠️ 成绩上传失败，请截图发给老师。</span>`;
+    finishBtn.textContent = '重试上传';
+    finishBtn.disabled = false;
+  });
+});
+
+document.getElementById('restart').addEventListener('click', () => {
+  if(confirm('确定重做测验吗？成绩将重新计算。')){
+    current = 0;
+    score = 0;
+    document.getElementById('score').textContent = '得分：0';
+    document.getElementById('nextBtn').style.display = 'inline-block'; 
+    document.getElementById('finishBtn').style.display = 'none';
+    loadQuestion();
+  }
+});
+
+// 学生信息页逻辑
+let studentName = '';
+let studentClass = '';
+
+document.getElementById('startQuiz').addEventListener('click', () => {
+  initAudio(); // 初始化音频环境
+  const nameInput = document.getElementById('studentName').value.trim();
+  const classSelect = document.getElementById('studentClass').value;
+  
+  if(!nameInput || !classSelect){
+    alert('请填写姓名并选择班级！');
+    return;
+  }
+  studentName = nameInput;
+  studentClass = classSelect;
+
+  document.getElementById('student-info').style.display = 'none';
+  document.getElementById('quiz-content').style.display = 'block';
+  loadQuestion();
+});
+</script>
+</body>
+</html>
